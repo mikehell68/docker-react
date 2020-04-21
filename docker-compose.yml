@@ -1,0 +1,21 @@
+version: '3'
+services:
+    web:
+        stdin_open: true #required to stop react exiting immediatly
+        build: 
+            context: .
+            dockerfile: Dockerfile.dev
+        ports:
+            - "3000:3000"
+        volumes:
+            - /app/node_modules
+            - /c/frontend:/app #mapped as shared in virtualbox
+    tests:
+        stdin_open: true #required to stop react exiting immediatly
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        volumes:
+            - /app/node_modules
+            - /c/frontend:/app #mapped as shared in virtualbox
+        command: ["npm", "run", "test"]
